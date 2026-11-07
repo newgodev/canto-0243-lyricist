@@ -1,46 +1,61 @@
 # canto-0243-lyricist
 
-粵語填詞 Skill — 精確 0243 聲碼、書面語、可稽核輸出。
+Precise Cantonese lyric writing skill for AI agents (Claude, Grok, Manus, etc.).
 
-專門為香港 0243 聲碼系統而設的 AI 填詞工具。
-給任何支援 Skills 的 AI（Claude、Grok 等）用的填詞人角色，專注旋律對位、精確字數、繁體書面語、語義同原創性。
+This skill helps create and revise Traditional Chinese written-language Cantonese lyrics with exact 0243 tone code matching, precise character counts, auditable output, and strong original/semantic constraints.
 
-**完全開源（MIT）**，歡迎 fork、改、提 PR 幫我改善呢個 Skill。
+It is designed specifically for the **Hong Kong 0243** system.
 
-## 點用
+## Why this exists
 
-1. 將成個 folder 放到你的 skills 目錄，或者直接貼 `SKILL.md` 入對話。
-2. 提供聲碼（0243 / 02493 / 394052）、字數、題材、韻腳（可選）、長音位置等。
-3. AI 會按流程鎖輸入、生成候選、逐字驗碼、交正文 + 逐字對照 + 驗收結果。
+粵語填詞最難嘅係聲調同旋律對位。0243 系統用簡單數字碼（0最低 → 2 → 4 → 3最高）幫填詞人快速找合碼字詞。呢個 Skill 將成套工作流程（鎖輸入、查詞、逐字驗碼、保義修訂、書面語、押韻）變成可重用嘅 AI 指令，令模型唔再靠直覺「啲音」，而係有可稽核嘅結果。
 
-詳細輸入格式見 `templates/request.md`。
+## Fully open source — forks & improvements welcome
 
-## 感謝同來源
+This project is released under the **MIT License**.  
+You are free to use, copy, modify, merge, publish, distribute, and sell it.  
+**Forks and Pull Requests are strongly encouraged** — help improve the skill, add better examples, fix edge cases, or support more modes.
 
-呢個 Skill 只係為香港 0243 系統而做，唔涉及其他聲碼系統。
+## How to use
 
-- 0243 聲碼理論由黃志華提出，參考站 [0243.hk](https://www.0243.hk/)
-- 詞庫查詢依賴 [Canto-0243](https://github.com/bill-iu/Canto-0243)（bill-iu）
-- 創作過程中多謝 Manus 同其他幫手
-- 原創指令同輔助腳本由 newgod2727 / newgodev 整理開源
+### As an Agent Skill (recommended)
+1. Clone or download this repo.
+2. Place `SKILL.md` where your agent looks for skills (e.g. Claude skills folder, or Manus skills).
+3. Provide the input contract (mode, character count, target codes, theme, etc.). See `templates/request.md`.
 
-## 同 Canto-0243 的關係（重要）
+### In any chat model
+Copy the content of `SKILL.md` into the system prompt / conversation and give the input contract.
 
-呢個 repo **唔包含** `lyrics.db` 詞庫。
+## Structure
+- `SKILL.md` — Main skill instructions
+- `scripts/` — Helper scripts (`lookup.py`, `audit.py`) for use with a locally obtained Canto-0243 database
+- `templates/` — Request template and worked examples
 
-用戶要自己合法取得 Canto-0243 的 `lyrics.db`，並遵守其 CC BY-NC-SA 4.0 + 附加條款。
-本 Skill 的 `scripts/` 只係唯讀適配器，唔會分發或改動上游詞庫，唔會影響其他人的權利。
+## Important: Word database is NOT included
 
-## 結構
+The lookup scripts are thin adapters. They require a separately and lawfully obtained `lyrics.db` from:
 
-- `SKILL.md` — 完整角色同工作流程
-- `scripts/` — `lookup.py`（查詞）、`audit.py`（驗碼）、`test_audit.py`
-- `templates/` — 輸入模板、例子（包括《A Million Dreams》145 字保義示範）
+**[Canto-0243 by bill-iu](https://github.com/bill-iu/Canto-0243)**
 
-## 授權
+Canto-0243 is licensed under **CC BY-NC-SA 4.0 + additional terms**.  
+You must obtain it yourself and comply with its license (no repackaging as a competing product, no paid API/service without permission, share-alike, attribution, etc.).  
+This skill does **not** redistribute any wordlist or database.
 
-MIT License。
+## Credits & thanks
+
+- **0243 system**: Created by 黃志華 (Wong Chi-wah). Site: [0243.hk](https://www.0243.hk)
+- **Canto-0243 offline dictionary & tools**: [bill-iu/Canto-0243](https://github.com/bill-iu/Canto-0243)
+- **Manus** and other AI agents that helped develop and refine this skill
+- All contributors who improve this via forks and PRs
+
+This skill is original instructions + thin adapters. It does not claim ownership of the 0243 theory or the Canto-0243 wordlist.
+
+## License
+
+MIT License — see [LICENSE](LICENSE).
+
 Copyright (c) 2026 newgod2727
 
-完全開源，歡迎 fork 同貢獻改善。
-用、改、分發都得。記住詞庫部分要遵守 Canto-0243 的條款，唔影響上游。
+---
+
+**For Hong Kong 0243. Open source so the community can keep improving it.**
